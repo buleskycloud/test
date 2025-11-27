@@ -10,11 +10,11 @@ from ftplib import FTP
 FTP_HOST = "1.15.89.138"
 FTP_USER = "XXYP"
 FTP_PASS = "hyx&20030404"
-REMOTE_DIR = "config"
+REMOTE_DIR = "FTP/config"
 REMOTE_FILENAME = "activation_keys.json"
 
 
-KEY_TYPES = ["PERM", "PERE", "PEEM", "TRIA", "ABCD", "XYZQ"]
+KEY_TYPES = ["PPPP", "FUCK", "YOUR", "TRIA", "ABCD", "XYZQ"]
 
 
 RANDOM_CHARS = (
@@ -132,6 +132,14 @@ def upload_via_ftp(local_path: str) -> None:
                     ftp.cwd(REMOTE_DIR)
                 except Exception as e:
                     print(f"[WARN] Cannot change/create directory '{REMOTE_DIR}': {e}")
+
+        # 尝试删除远程同名文件，避免被占用导致无法覆盖
+        try:
+            print(f"[INFO] Trying to delete existing {REMOTE_FILENAME} on server (if any)...")
+            ftp.delete(REMOTE_FILENAME)
+            print("[INFO] Existing file deleted.")
+        except Exception as e:
+            print(f"[WARN] Could not delete existing {REMOTE_FILENAME}: {e}")
 
         with open(local_path, "rb") as f:
             print(f"[INFO] Uploading {REMOTE_FILENAME}...")
