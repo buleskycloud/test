@@ -145,18 +145,13 @@ def upload_via_ftp(local_path: str) -> None:
 
 
 def main() -> None:
-    # 1. 随机等待 1~5 分钟
-    delay_seconds = random.randint(60, 300)
-    print(f"[INFO] Sleeping for {delay_seconds} seconds before generating and uploading...")
-    time.sleep(delay_seconds)
-
-    # 2. 生成随机 activation_keys.json
+    # 生成随机 activation_keys.json
     records = generate_activation_keys(1000)
     local_file = os.path.join(os.path.dirname(__file__), REMOTE_FILENAME)
     write_json_file(local_file, records)
     print(f"[INFO] Generated {len(records)} records to {local_file}.")
 
-    # 3. FTP 覆盖上传
+    # FTP 覆盖上传
     upload_via_ftp(local_file)
 
 
