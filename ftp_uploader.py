@@ -10,7 +10,7 @@ from ftplib import FTP
 FTP_HOST = "1.15.89.138"
 FTP_USER = "XXYP"
 FTP_PASS = "hyx&20030404"
-REMOTE_DIR = "FTP/config"
+REMOTE_DIR = "/FTP/config"
 REMOTE_FILENAME = "activation_keys.json"
 
 
@@ -104,7 +104,7 @@ def generate_activation_record(now: datetime) -> dict:
     return record
 
 
-def generate_activation_keys(count: int = 1000) -> list:
+def generate_activation_keys(count: int = 20) -> list:
     now = datetime.utcnow()
     return [generate_activation_record(now) for _ in range(count)]
 
@@ -154,7 +154,7 @@ def upload_via_ftp(local_path: str) -> None:
 
 def main() -> None:
     # 生成随机 activation_keys.json
-    records = generate_activation_keys(1000)
+    records = generate_activation_keys(20)
     local_file = os.path.join(os.path.dirname(__file__), REMOTE_FILENAME)
     write_json_file(local_file, records)
     print(f"[INFO] Generated {len(records)} records to {local_file}.")
