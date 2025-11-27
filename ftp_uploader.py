@@ -32,6 +32,51 @@ def random_device() -> str:
     return ":".join(segments)
 
 
+CHINESE_NICKNAMES = [
+    "一键翻唱",
+    "摸鱼侠",
+    "孤城客",
+    "月下人",
+    "风眠客",
+    "星野梦",
+]
+
+
+EN_NICK_PREFIX = [
+    "neo",
+    "star",
+    "pixel",
+    "cyber",
+    "luna",
+    "nova",
+    "dream",
+    "mist",
+    "wave",
+]
+
+
+EN_NICK_SUFFIX = [
+    "fox",
+    "wing",
+    "flow",
+    "beat",
+    "lite",
+    "zero",
+    "spark",
+    "summer",
+]
+
+
+def random_nickname() -> str:
+    """生成不超过 10 字符的中英文昵称。"""
+
+    if random.random() < 0.4:
+        return random.choice(CHINESE_NICKNAMES)
+
+    nickname = random.choice(EN_NICK_PREFIX) + random.choice(EN_NICK_SUFFIX)
+    return nickname[:10]
+
+
 def random_datetime_strings(base: datetime) -> tuple[str, str]:
     """返回 (日期字符串, 当日随机时间字符串)。"""
 
@@ -51,7 +96,7 @@ def generate_activation_record(now: datetime) -> dict:
         "type": "PERM",
         "created_date": date_str,
         "created_at": date_str,
-        "remark": "",
+        "remark": random_nickname(),
         "used": True,
         "locked": False,
         "bound_device": random_device(),
