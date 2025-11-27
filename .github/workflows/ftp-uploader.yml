@@ -23,6 +23,5 @@ jobs:
           python -V
 
       - name: Run FTP uploader
-        working-directory: ./ftp
         run: |
           python ftp_uploader.py
