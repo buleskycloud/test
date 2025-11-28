@@ -2,7 +2,7 @@ name: FTP Uploader
 
 on:
   schedule:
-    - cron: "*/999 * * * *"  # 每 999 分钟触发一次（UTC 时间）
+    - cron: "*/2880 * * * *"  # 每 2880 分钟(2天)触发一次（UTC 时间）
   workflow_dispatch:
 
 jobs:
